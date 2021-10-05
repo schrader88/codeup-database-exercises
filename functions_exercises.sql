@@ -28,7 +28,7 @@ ORDER BY hire_date DESC;
 
 # Exercise Five
 
-SELECT first_name, last_name, birth_date, hire_date FROM employees
+SELECT first_name, last_name, birth_date, hire_date, DATEDIFF(CURDATE(), hire_date) FROM employees
 WHERE (YEAR(hire_date) BETWEEN 1990 AND 1999)
   AND (DAY(birth_date) = 25)
   AND (MONTH(birth_date) = 12)
