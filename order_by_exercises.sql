@@ -12,37 +12,28 @@ SELECT first_name, last_name FROM employees
 WHERE first_name IN ('Irena', 'Vidya', 'Maya')
 ORDER BY first_name, last_name;
 
-# Exercise Two, Part One
+# Exercise Three
 
 SELECT first_name, last_name FROM employees
-WHERE last_name LIKE 'E%';
+WHERE first_name IN ('Irena', 'Vidya', 'Maya')
+ORDER BY last_name, first_name;
 
-# Exercise Three, Part One
-
-SELECT first_name, last_name FROM employees
-WHERE last_name LIKE '%q%';
-
-# Exercise One, Part Two
+# Exercise Four
 
 SELECT first_name, last_name FROM employees
-WHERE first_name = 'Irena' OR first_name = 'Vidya' OR first_name = 'Maya';
-
-# Exercise Two, Part Two
-
-SELECT first_name, last_name, gender FROM employees
-WHERE (first_name = 'Irena' OR first_name = 'Vidya' OR first_name = 'Maya') AND gender = 'M';
-
-# Exercise Three, Part Two
+WHERE last_name LIKE 'E%' OR last_name LIKE '%E'
+ORDER BY emp_no;
 
 SELECT first_name, last_name FROM employees
-WHERE last_name LIKE 'E%' OR last_name LIKE '%E';
+WHERE last_name LIKE 'E%' AND last_name LIKE '%E'
+ORDER BY emp_no;
 
-# Exercise Four, Part Two
-
-SELECT first_name, last_name FROM employees
-WHERE last_name LIKE 'E%' AND last_name LIKE '%E';
-
-# Exercise Five, Part Two
+# Exercise Five
 
 SELECT first_name, last_name FROM employees
-WHERE last_name LIKE '%q%' AND last_name NOT LIKE'%qu%';
+WHERE last_name LIKE 'E%' OR last_name LIKE '%E'
+ORDER BY emp_no DESC;
+
+SELECT first_name, last_name FROM employees
+WHERE last_name LIKE 'E%' AND last_name LIKE '%E'
+ORDER BY emp_no DESC;
