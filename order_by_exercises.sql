@@ -6,6 +6,11 @@ SELECT first_name, last_name FROM employees
 WHERE first_name IN ('Irena', 'Vidya', 'Maya')
 ORDER BY first_name;
 
+SELECT first_name, last_name FROM employees
+WHERE first_name IN ('Irena', 'Vidya', 'Maya')
+AND gender = 'M'
+ORDER BY first_name;
+
 # Exercise Two
 
 SELECT first_name, last_name FROM employees
