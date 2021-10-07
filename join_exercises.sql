@@ -43,12 +43,35 @@ INSERT INTO users (name, email, role_id) VALUES
     ('jenna', 'jenna@example.com', 2),
     ('rick', 'rick@example.com', null);
 
-SELECT users.id, users.name, roles.name FROM users JOIN roles on users.role_id = roles.id;
+SELECT users.id, users.name, roles.name FROM users JOIN roles ON users.role_id = roles.id;
 
-SELECT users.id, users.name, roles.name FROM users LEFT JOIN roles on users.role_id = roles.id;
+SELECT users.id, users.name, roles.name FROM users LEFT JOIN roles ON users.role_id = roles.id;
 
-SELECT users.id, users.name, roles.name FROM users RIGHT JOIN roles on users.role_id = roles.id;
+SELECT users.id, users.name, roles.name FROM users RIGHT JOIN roles ON users.role_id = roles.id;
 
 SELECT COUNT(*), roles.name FROM users
-LEFT JOIN roles on users.role_id = roles.id
+LEFT JOIN roles ON users.role_id = roles.id
 GROUP BY roles.name;
+
+######################################################
+
+USE employees;
+
+# Exercise One
+
+SELECT d.dept_name AS 'Department Name', CONCAT(first_name, ' ', last_name) AS 'Department Manager'
+FROM employees e
+JOIN dept_manager de ON de.emp_no = e.emp_no
+JOIN departments d ON d.dept_no = de.dept_no
+WHERE de.to_date = '9999-01-01'
+ORDER BY d.dept_name;
+
+# Exercise Two
+
+SELECT d.dept_name AS 'Department Name', CONCAT(first_name, ' ', last_name) AS 'Department Manager'
+FROM employees e
+JOIN dept_manager de ON de.emp_no = e.emp_no
+JOIN departments d ON d.dept_no = de.dept_no
+WHERE de.to_date = '9999-01-01' AND e.gender = 'F'
+ORDER BY d.dept_name;
+
