@@ -102,7 +102,7 @@ ORDER BY d.dept_name;
 # WHERE de.to_date = '9999-01-01' AND dm.to_date = '9999-01-01'
 # GROUP BY CONCAT(e.first_name, ' ', e.last_name), d.dept_name, CONCAT(e2.first_name, ' ', e2.last_name);
 
-# Paris' Bonus
+# Paris' Bonus Solution
 
 SELECT CONCAT(first_name,' ',last_name), current_managers.dept_name, current_managers.manager_name FROM employees
 JOIN dept_emp de on employees.emp_no = de.emp_no
@@ -115,3 +115,45 @@ JOIN (
              WHERE dm.to_date > NOW()
 ) AS current_managers ON current_managers.dept_name = d.dept_name
 WHERE de.to_date > NOW();
+
+# Extra Bonuses
+
+# What is the name of everyone who has worked or is working as an ‘Assistant Engineer’?
+
+SELECT CONCAT(first_name, ' ', last_name) AS Name, t.title AS Title
+FROM employees e
+JOIN titles t on e.emp_no = t.emp_no
+WHERE t.title = 'Assistant Engineer';
+
+
+# What are the DOBs of all current senior engineers?
+
+SELECT CONCAT(first_name, ' ', last_name) AS Name, t.title AS Title, birth_date AS DOB, t.to_date
+FROM employees e
+JOIN titles t on e.emp_no = t.emp_no
+WHERE t.title = 'Senior Engineer' AND t.to_date > NOW();
+
+# What is the most common title in the ‘Marketing’ department?
+
+SELECT title AS Title, COUNT(*) AS '# of Employees', d.dept_name AS Department
+FROM titles t
+JOIN dept_emp de ON t.emp_no = de.emp_no
+JOIN departments d on de.dept_no = d.dept_no
+WHERE de.dept_no = 'd001'
+GROUP BY title;
+
+# What is the most common birthday in the company? least common?
+
+SELECT birth_date AS DOB, COUNT(*) AS '# of Employees'
+FROM employees
+GROUP BY birth_date
+ORDER BY 2 DESC;
+
+# How many male and female employees currently work in the ‘Finance’ department?
+
+
+
+# What is the average current salary for each department?
+# What was the average salary in the 80s (a salary that started and ended in the 80s)? By department?
+# What are the names of all ‘Staff’ employees in the ‘Research’ department?
+# What is name of the lowest paid ‘Staff’ members in the ‘Research’ department (make sure the salary and employment in the department is current).
