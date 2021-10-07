@@ -92,17 +92,18 @@ JOIN departments d ON d.dept_no = de.dept_no
 WHERE de.to_date = '9999-01-01' AND s.to_date = '9999-01-01'
 ORDER BY d.dept_name;
 
-# Bonus - ASK FOR HELP!!!!!
+# Bonus - ASK FOR HELP!!!!! Below Solution DOES NOT WORK YET!
 
 # SELECT CONCAT(e.first_name, ' ', e.last_name) AS Employee, d.dept_name AS Department, CONCAT(e2.first_name, ' ', e2.last_name) AS Manager
-# FROM employees e, employees e2
+# FROM employees e
 # JOIN dept_emp de ON de.emp_no = e.emp_no
 # JOIN departments d ON d.dept_no = de.dept_no
-# JOIN dept_manager dm ON dm.emp_no = e2.emp_no
+# JOIN dept_manager dm ON dm.dept_no = d.dept_no
+# JOIN employees e2 ON e2.emp_no = dm.emp_no
 # WHERE de.to_date = '9999-01-01' AND dm.to_date = '9999-01-01'
-# GROUP BY CONCAT(e.first_name, ' ', e.last_name), d.dept_name, CONCAT(e2.first_name, ' ', e2.last_name);
+# GROUP BY d.dept_name, CONCAT(e.first_name, ' ', e.last_name), CONCAT(e2.first_name, ' ', e2.last_name);
 
-# Paris' Bonus Solution
+# Paris' Bonus Solution - WORKS!
 
 SELECT CONCAT(first_name,' ',last_name), current_managers.dept_name, current_managers.manager_name FROM employees
 JOIN dept_emp de on employees.emp_no = de.emp_no
@@ -151,9 +152,48 @@ ORDER BY 2 DESC;
 
 # How many male and female employees currently work in the ‘Finance’ department?
 
-
+SELECT CONCAT(COUNT(*), ' - ',gender) AS '# of M/F', d.dept_name AS Department
+FROM employees e
+JOIN dept_emp de on e.emp_no = de.emp_no
+JOIN departments d on de.dept_no = d.dept_no
+WHERE d.dept_name = 'Finance'
+GROUP BY gender, d.dept_name;
 
 # What is the average current salary for each department?
+
+SELECT AVG(salary) AS 'Average Salary', d.dept_name AS Department
+FROM salaries s
+JOIN dept_emp de on s.emp_no = de.emp_no
+JOIN departments d on de.dept_no = d.dept_no
+WHERE s.to_date > NOW() AND de.to_date > NOW()
+GROUP BY dept_name;
+
 # What was the average salary in the 80s (a salary that started and ended in the 80s)? By department?
+
+SELECT AVG(salary) AS 'Average Salary', d.dept_name AS Department
+FROM salaries s
+JOIN dept_emp de on s.emp_no = de.emp_no
+JOIN departments d on de.dept_no = d.dept_no
+WHERE (s.from_date BETWEEN '1980-01-01' AND '1989-12-31') AND (s.to_date BETWEEN '1980-01-01' AND '1989-12-31')
+GROUP BY dept_name;
+
 # What are the names of all ‘Staff’ employees in the ‘Research’ department?
+
+SELECT CONCAT(first_name, ' ', last_name), t.title
+FROM employees e
+JOIN dept_emp de on e.emp_no = de.emp_no
+JOIN titles t on e.emp_no = t.emp_no
+WHERE de.dept_no = 'd008' AND t.title = 'Staff';
+
 # What is name of the lowest paid ‘Staff’ members in the ‘Research’ department (make sure the salary and employment in the department is current).
+
+SELECT CONCAT(first_name, ' ', last_name), t.title, s.salary
+FROM employees e
+JOIN dept_emp de on e.emp_no = de.emp_no
+JOIN titles t on e.emp_no = t.emp_no
+JOIN salaries s on e.emp_no = s.emp_no
+WHERE (de.dept_no = 'd008' AND t.title = 'Staff')
+    AND s.to_date > NOW()
+    AND de.to_date > NOW()
+ORDER BY s.salary
+LIMIT 10;
