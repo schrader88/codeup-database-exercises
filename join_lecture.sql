@@ -39,3 +39,20 @@ SELECT * FROM persons;
 
 SELECT p.first_name AS Name, a.name AS 'Favorite Album' FROM persons p
 JOIN albums a ON a.id = p.album_id;
+
+#######################################################
+
+USE codeup_test_db;
+
+CREATE TABLE preferences (
+     person_id INT UNSIGNED NOT NULL,
+     album_id INT UNSIGNED NOT NULL,
+     FOREIGN KEY (person_id) REFERENCES persons(id),
+     FOREIGN KEY (album_id) REFERENCES  albums(id)
+);
+
+INSERT INTO preferences (person_id, album_id) VALUES (1, 12), (1, 5), (1, 22), (1, 29), (2, 1), (2, 10), (2, 30), (3, 11), (3, 26), (3, 25);
+
+SELECT per.first_name AS Name, a.name AS 'Album Name' FROM preferences pref
+JOIN albums a ON pref.album_id = a.id
+JOIN persons per ON pref.person_id = per.id;
