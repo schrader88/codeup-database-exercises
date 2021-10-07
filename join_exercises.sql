@@ -75,3 +75,19 @@ JOIN departments d ON d.dept_no = de.dept_no
 WHERE de.to_date = '9999-01-01' AND e.gender = 'F'
 ORDER BY d.dept_name;
 
+# Exercise Three
+
+SELECT title, COUNT(*) AS Total FROM titles t
+JOIN dept_emp de ON de.emp_no = t.emp_no
+WHERE t.to_date = '9999-01-01' AND dept_no = 'd009'
+GROUP BY title;
+
+# Exercise Four
+
+SELECT d.dept_name AS 'Department Name', CONCAT(first_name, ' ', last_name) AS 'Department Manager', s.salary
+FROM employees e
+JOIN dept_manager de ON de.emp_no = e.emp_no
+JOIN salaries s ON e.emp_no = s.emp_no
+JOIN departments d ON d.dept_no = de.dept_no
+WHERE de.to_date = '9999-01-01' AND s.to_date = '9999-01-01'
+ORDER BY d.dept_name;
