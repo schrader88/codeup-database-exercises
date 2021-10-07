@@ -32,3 +32,23 @@
 #      ('jane', 'jane@example.com', null),
 #      ('mike', 'mike@example.com', null);
 
+
+# Join Example Database
+
+USE join_test_db;
+
+INSERT INTO users (name, email, role_id) VALUES
+    ('kyle', 'kyle@example.com', 2),
+    ('joe', 'joe@example.com', 2),
+    ('jenna', 'jenna@example.com', 2),
+    ('rick', 'rick@example.com', null);
+
+SELECT users.id, users.name, roles.name FROM users JOIN roles on users.role_id = roles.id;
+
+SELECT users.id, users.name, roles.name FROM users LEFT JOIN roles on users.role_id = roles.id;
+
+SELECT users.id, users.name, roles.name FROM users RIGHT JOIN roles on users.role_id = roles.id;
+
+SELECT COUNT(*), roles.name FROM users
+LEFT JOIN roles on users.role_id = roles.id
+GROUP BY roles.name;
