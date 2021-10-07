@@ -28,3 +28,14 @@ SELECT users.name, roles.name FROM users LEFT JOIN roles ON roles.id = users.rol
 # Example: 'users RIGHT JOIN roles' - users is LEFT TABLE and roles is RIGHT TABLE
 
 SELECT users.name, roles.name FROM users RIGHT JOIN roles ON roles.id = users.role_id;
+
+######################################################
+
+USE codeup_test_db;
+
+INSERT INTO persons (first_name, album_id) VALUES ('Olivia', 29), ('Santiago', 27), ('Tareq', 15), ('Anaya', 28);
+
+SELECT * FROM persons;
+
+SELECT p.first_name AS Name, a.name AS 'Favorite Album' FROM persons p
+JOIN albums a ON a.id = p.album_id;
