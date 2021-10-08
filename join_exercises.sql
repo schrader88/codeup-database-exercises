@@ -100,8 +100,8 @@ ORDER BY d.dept_name;
 # JOIN departments d ON d.dept_no = de.dept_no
 # JOIN dept_manager dm ON dm.dept_no = d.dept_no
 # JOIN employees e2 ON e2.emp_no = dm.emp_no
-# WHERE de.to_date = '9999-01-01' AND dm.to_date = '9999-01-01'
-# GROUP BY d.dept_name, CONCAT(e.first_name, ' ', e.last_name), CONCAT(e2.first_name, ' ', e2.last_name);
+# WHERE de.to_date > NOW() AND dm.to_date > NOW()
+# GROUP BY d.dept_name, e.emp_no;
 
 # Paris' Bonus Solution - WORKS!
 
